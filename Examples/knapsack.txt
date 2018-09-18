@@ -1,0 +1,6 @@
+20
+ 5  10  cream puffs
+20  30  candy corn
+ 7  15  jaw breakers
+50  22  smarties
+3   12  jelly beans

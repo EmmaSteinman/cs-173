@@ -1,0 +1,34 @@
+//===========================================================
+// Emma Steinman
+// March 19, 2017
+// testMain3.cpp
+// This program has terminal units for Complex class.
+//===========================================================
+
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <assert.h>
+#include "Complex.h"
+using namespace std;
+
+//===========================================================
+// test operator/ with divide by zero
+//===========================================================
+
+void test101(void)
+{
+    cout << "test101\n";
+    Complex c1(33, 492);
+    Complex c2(0,0);
+    Complex c3 = c1 / c2;
+    cout << c3.getReal() << " " << c3.getImag() << endl;
+}
+
+int main(void)
+{
+    cout << "754" << endl;
+    test101();
+    
+    return 0;
+}

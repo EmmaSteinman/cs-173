@@ -1,0 +1,239 @@
+//====================================================================
+// Emma Steinman
+// project3.cpp
+// February 8, 2017
+// This project breaks a Caesar Cipher
+// This text is from A Tale of Two Cities.
+//====================================================================
+
+#define N 6000
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+
+// function templates
+void  decode     ( char cipher[], int key, char plain[] );
+void  frequency  ( char text[], float freq[] );
+float alignScore ( float f1[], float f2[] );
+
+//====================================================================
+// main
+//====================================================================
+
+int main ( void )
+{
+    char cipher[N];         // the original ciphertext as read in
+    int n = 0;              // the length of the ciphertext message
+    char plain[N];          // place to hold the plaintext message
+    float freq[26];         // frequencies we compute from our plaintext
+    int key;                // the decoding key
+    float score;            // the alignment score
+
+    /*----------------------- PART 1 ---------------------------------
+    The purpose of part 1 is to set up the known frequencies for
+    English letters A..Z in a float array.   And to read the input
+    text from standard input and store the text into a char array.
+    ----------------------------------------------------------------*/
+     
+    // letter frequencies for A..Z in regular English writing
+    float knownfreq[] =
+    { 0.08167, 0.01492, 0.02782, 0.04253, 0.12702,
+      0.02228, 0.02015, 0.06094, 0.06966, 0.00153,
+      0.00772, 0.04025, 0.02406, 0.06749, 0.07507,
+      0.01929, 0.00095, 0.05987, 0.06327, 0.09056,
+      0.02758, 0.00978, 0.02360, 0.00150, 0.01974, 0.00074 };
+
+    
+    /* This block of code will read a character of input at a time
+     from cin until it hits the end of the input (end-of-file).   
+     The characters are stored in the character array cipher.  */
+    while ( cin )
+    {
+        char c;
+        cin >> noskipws >> c;   // noskipws allows us to read spaces
+        if ( cin )
+            cipher[n++] = c;
+    }
+    cipher[n] = 0;  // end of buffer
+    
+   // cout << "Ciphertext = " << cipher << endl;  // comment this out later
+    
+    
+    /*----------------------- PART 2 ---------------------------------
+    The purpose of this part of the program is to write a decode function
+    and test it out with a known key.
+    ----------------------------------------------------------------*/
+	
+	/*key = 8;
+    decode(cipher, key, plain);
+	cout << "Plaintext = " << plain << endl;*/
+
+    /*----------------------- PART 3 ---------------------------------
+     This part of the project adds the frequency computation.  Get
+     some plaintext with the key.  Then send this plaintext to the 
+     frequency function to have the relative frequencies of A..Z 
+     computed and printed.
+    ----------------------------------------------------------------*/
+	
+	/*key = 5;
+	decode(cipher, key, plain);
+	cout << "Plaintext = " << plain << endl;	
+	frequency(plain, freq);*/
+
+    
+    /*----------------------- PART 4 ---------------------------------
+     In this part of the project you will add the alignScore computation.
+     Compute how well your frequency count aligns with the known frequency
+     count.  A lower score is better.
+     ----------------------------------------------------------------*/
+	
+	/*key = 5;
+	decode(cipher, key, plain);
+	cout << "Plaintext = " << plain << endl;
+	frequency(plain, freq);	
+	cout << alignScore(freq, knownfreq) << endl;*/
+    
+    /*----------------------- PART 5 ---------------------------------
+    This part of the project is the final part.  It will be the only 
+     piece (along with Part 1) that is not commented out.  
+     The purpose here is to try each possible key (0..25) and find the
+     key with the smallest alignment score.  This is likely the key 
+     for the decryption.   Use this key to decrypt the cipher text.  
+     Print the key and the plain text recovered.
+     ----------------------------------------------------------------*/
+
+	// creates new array to compare keys	
+	float compare[26];	
+
+	/* decodes and computes frequency and alignment score for every key
+	0-25 and enters the alignment score into an array */
+	for (key = 0; key <= 25; key++)
+	{	
+		decode(cipher, key, plain);
+		//cout << "Plaintext= " << plain << endl;
+		frequency(plain, freq);
+		cout << key << " " << alignScore(freq, knownfreq) << endl;
+		compare[key] = alignScore(freq, knownfreq); 
+	}
+
+	// finds the lowest alignment score
+	int min = 0;
+	for (int i = 1; i <= 25; i++)
+	{
+		if (compare[i] < compare[min])
+			min = i;
+	}
+
+    cout << "The correct key is " << min << "." << endl;
+	cout << "The alignment score is " << compare[min] << "." << endl;
+	decode(cipher, min, plain);
+	cout << "The plaintext is: " << plain << "." << endl;
+
+    return 0;
+}
+
+//====================================================================
+// decode
+// This function decodes a ciphertext into a plaintext using a
+// secret key.
+// Parameters:
+// - cipher: a character array (c string) that is the ciphertext
+// - key   : an integer key for the Caesar Cipher
+// Return Value:
+// - none, but the plain (plaintext) is filled in with the decoded
+//   cipher text.
+//====================================================================
+void decode ( char cipher[], int key, char plain[] )
+{
+    int i = 0;
+	
+	// checks all characters until string ends
+    while(cipher[i] != 0)
+    {
+		// only changes character if it is between A and Z
+		if (cipher[i] >= 'A' and cipher[i] <= 'Z')
+		{
+			char c = cipher[i];
+			c -= 65;
+			c -= key;
+			while(c < 0)
+				c += 26;
+			plain[i] = (c  % 26) + 65;
+		}
+		else
+			plain[i] = cipher[i];
+	    i++;
+	}
+	
+	// end of buffer
+	plain[i] = 0;
+
+}
+
+//====================================================================
+// frequency
+// This function computes the relative frequency of upper case letters
+// that appear in the text.  Characters that are not in A..Z are ignored
+// in the frequency calculation.
+//
+// Parameters:
+// - text : a character array (c string) containing printable chars.
+//
+// Return Value: none but freq is changed
+// - freq : an array of 26 floats each with the frequency of their
+// respective letters in the string text.
+//====================================================================
+void frequency ( char text[], float freq[] )
+{
+	int i = 0;
+	int c = 0;
+	int total = 0;
+
+	// counts frequency until string ends
+	while (text[i] != 0)
+	{
+		// only computes freq if character is between A and Z
+		if (text[i] >= 'A' and text[i] <= 'Z')
+		{
+			c = text[i] - 65;
+			freq[c] += 1;
+			total += 1;
+		}
+		i++;
+	}
+	
+	for (int r = 0; r <= 26; r++)
+		freq[r] /= total;
+
+    
+}
+
+//====================================================================
+// alignScore
+// This function computes an alignment score between the two float
+// vectors.  Each vector is of length 26 floats.  Their inner product
+// is computed and returned.
+// Parameters:
+// f1 : an array of 26 floating point values
+// f2 : an array of 26 floating point values
+// Return Value:
+// sum of (f1[i] - f2[i])^2,  that is, compute the sum of the squared
+// differences of the individual elements in the array.
+//====================================================================
+float   alignScore ( float f1[], float f2[] )
+{
+	float total = 0;
+	float squared = 0;
+	for (int i = 0; i <= 26; i++)
+	{
+		/* compares frequency of string to the known frequency 
+			of the alphabet */
+		squared = (f1[i] - f2[i]) * (f1[i] - f2[i]);
+		total += squared;
+	}
+	return total;
+
+
+}
+
+//====================================================================

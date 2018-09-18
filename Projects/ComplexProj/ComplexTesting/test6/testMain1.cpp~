@@ -1,0 +1,394 @@
+//===========================================================
+// Kassandra Ortega
+// March 20, 2017
+// testMain1.cpp
+// This program has non-terminal unit tests for Complex class.
+//===========================================================
+
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <assert.h>
+#include "Complex.h"
+using namespace std;
+
+//===========================================================
+// test default constructor
+//===========================================================
+void test1 (void)
+{
+	cout << "test1" << endl;
+	Complex c2;
+	ostringstream stream;
+	stream << c2;
+	string str = stream.str();
+	assert(str == "0 + 0i");
+}
+//===========================================================
+// test copy constructor
+//===========================================================
+void test2 (void)
+{
+	cout << "test2" << endl;
+	Complex c3(3, 4);
+	Complex c2(c3);
+    assert(c2.getReal() == 3 && c2.getImag() == 4);
+}
+//===========================================================
+// test Complex constructor
+//===========================================================
+void test3 (void)
+{
+	cout << "test3" << endl;
+	Complex c2(3, 4);
+	assert(c2.getReal() == 3  && c2.getImag() == 4);
+}
+//===========================================================
+// test addition operator
+// 2 complex numbers
+//===========================================================
+void test4 (void)
+{
+	cout << "test4" << endl;
+	Complex c2 (3, 4);
+	Complex c3 (6, 2);
+	Complex c1;
+	c1 = c2 + c3;
+	assert (c1.getReal() == 9 && c1.getImag() == 6);
+}
+//===========================================================
+// test addition operator
+// complex and integer
+//===========================================================
+void test5 (void)
+{
+	cout << "test5" << endl;
+	Complex c2 (3, 4);
+	Complex c1;
+	int num = 5;
+	c1 = c2 + num;
+	assert (c1.getReal() == 8 && c1.getImag() == 4);
+}
+//===========================================================
+// test addition operator
+// complex and float
+//===========================================================
+void test6 (void)
+{
+	cout << "test6" << endl;
+	Complex c2 (3, 4);
+	Complex c1;
+	float num = 5.5;
+	c1 = c2 + num;
+	assert (c1.getReal() == 8.5 && c1.getImag() == 4);
+}
+//===========================================================
+// test subtraction operator
+// 2 complex numbers
+//===========================================================
+void test7 (void)
+{
+	cout << "test7" << endl;
+	Complex c2 (3, 4);
+	Complex c3 (6, 2);
+	Complex c1;
+	c1 = c2 - c3;
+	assert (c1.getReal() == -3 && c1.getImag() == 2);
+}
+//===========================================================
+// test subtraction operator
+// complex and integer
+//===========================================================
+void test8 (void)
+{
+	cout << "test8" << endl;
+	Complex c2 (3, 4);
+	Complex c1;
+	int num = 5;
+	c1 = c2 - num;
+	assert (c1.getReal() == -2 && c1.getImag() == 4);
+}
+//===========================================================
+// test subtraction operator 
+// complex and float
+//===========================================================
+void test9 (void)
+{
+	cout << "test9" << endl;
+	Complex c2 (3, 4);
+	Complex c1;
+	float num = 5.5;
+	c1 = c2 - num;
+	assert (c1.getReal() == -2.5 && c1.getImag() == 4);
+}
+//===========================================================
+// test multiplication operator
+// 2 complex numbers
+//===========================================================
+void test10 (void)
+{
+	cout << "test10" << endl;
+	Complex c2 (3, 4);
+	Complex c3 (6, 2);
+	Complex c1;
+	c1 = c2 * c3;
+	assert (c1.getReal() == 10 && c1.getImag() == 30);
+}
+//===========================================================
+// test multiplication operator
+// complex and integer
+//===========================================================
+void test11 (void)
+{
+	cout << "test11" << endl;
+	Complex c2 (3, 4);
+	Complex c1;
+	int num = 5;
+	c1 = c2 * num;
+	assert (c1.getReal() == 15 && c1.getImag() == 20);
+}
+//===========================================================
+// test multiplication operator
+// complex and float
+//===========================================================
+void test12 (void)
+{
+	cout << "test12" << endl;
+	Complex c2 (3, 4);
+	Complex c1;
+	float num = 5.5;
+	c1 = c2 * num;
+	assert (c1.getReal() == 16.5 && c1.getImag() == 22);
+}
+//===========================================================
+// test division operator
+// 2 complex numbers
+//===========================================================
+void test13 (void)
+{
+	cout << "test13" << endl;
+	Complex c2 (3, 4);
+	Complex c3 (6, 2);
+	Complex c1;
+	c1 = c2 / c3;
+	assert (c1.getReal() == 0.65f  && c1.getImag() == 0.45f);
+}
+//===========================================================
+// test division operator
+// complex and integer
+//===========================================================
+void test14 (void)
+{
+	cout << "test14" << endl;
+	Complex c2 (3, 4);
+	Complex c1;
+	int num = 5;
+	c1 = c2 / num;
+	assert (c1.getReal() == 0.6f && c1.getImag() == 0.8f);
+}
+//===========================================================
+// test division operator
+// complex and float
+//===========================================================
+void test15 (void)
+{
+	cout << "test15" << endl;
+	Complex c2 (11, 5.5);
+	Complex c1;
+	float num = 5.5;
+	c1 = c2 / num;
+	assert (c1.getReal() == 2 && c1.getImag() == 1);
+}
+//===========================================================
+// test conjugate operator with postive complex number
+//===========================================================
+void test16 (void)
+{
+	cout << "test16" << endl;
+	Complex c2(3, 4);
+	Complex c1;
+	c1 = ~c2;
+	assert (c1.getReal() == 3 && c1.getImag() == -4);
+
+}
+//===========================================================
+// test conjugate operator with negative complex number
+//===========================================================
+void test17 (void)
+{
+	cout << "test17" << endl;
+	Complex c2(-3, -4);
+	Complex c1;
+	c1 = ~c2;
+	assert (c1.getReal() == -3 && c1.getImag() == 4);
+}
+//===========================================================
+// test negation operator with positive complex number
+//===========================================================
+void test18 (void)
+{
+	cout << "test18" << endl;
+	Complex c2(3, 4);
+	Complex c1;
+	c1 = -c2;
+	assert (c1.getReal() == -3 && c1.getImag() == -4);
+}
+//===========================================================
+// test negation operator with negative complex number
+//===========================================================
+void test19 (void)
+{
+	cout << "test19" << endl;
+	Complex c2(-3, -4);
+	Complex c1;
+	c1 = -c2;
+	assert (c1.getReal() == 3 && c1.getImag() == 4);
+}
+//===========================================================
+// test exponentiation operator with positive complex number
+//===========================================================
+void test20 (void)
+{
+	cout << "test20" << endl;
+	Complex c2(3, 4);
+	float num = 2;
+	Complex c1;
+	c1 = c2^num;
+	assert (c1.getReal() == -7 && c1.getImag() == 24);
+}
+//===========================================================
+// test exponentiation operator with negative complex number
+//===========================================================
+void test21 (void)
+{
+	cout << "test21" << endl;
+	Complex c2(3, -4);
+	float num = 2;
+	Complex c1;
+	c1 = c2^num;
+	assert(c1.getReal() == -7 && c1.getImag() == -24);
+}
+//===========================================================
+// test setReal modifier
+//===========================================================
+void test22 (void)
+{
+	cout << "test22" << endl;
+	Complex c1;
+	c1.setReal(5);
+	float num = 5;
+	assert(c1.getReal() == num);
+}
+//===========================================================
+// test getReal accessor
+//===========================================================
+void test23 (void)
+{
+	cout << "test23" << endl;
+	Complex c1(6, 2);
+	float num = c1.getReal();
+	assert(num = 6);
+}
+//===========================================================
+// test setImag modifier
+//===========================================================
+void test24 (void)
+{
+	cout << "test24" << endl;
+	Complex c1;
+	c1.setImag(5);
+	float num = 5;
+	assert(c1.getImag() == num);
+}
+//===========================================================
+// test getImag accessors
+//===========================================================
+void test25 (void)
+{
+	cout << "test25" << endl;
+	Complex c1(6, 2);
+	float num = c1.getImag();
+	assert(num = 2);	
+}
+//===========================================================
+// test assignment operator 
+//===========================================================
+void test26 (void)
+{
+	cout << "test26" << endl;
+	Complex c2(3, 4);
+	Complex c1;
+	c1 = c2;
+	assert(c1.getReal() == 3 && c1.getImag() == 4);
+}
+//===========================================================
+// test equality operator
+//===========================================================
+void test27 (void)
+{
+	cout << "test27" << endl;
+	Complex c2(6, 2);
+	Complex c3(6, 2);
+	assert(c2 == c3);
+}
+//===========================================================
+// test inequality operator
+//===========================================================
+void test28 (void)
+{
+	cout << "test28" << endl;
+	Complex c2(6, 2);
+	Complex c3(3, 4);
+	assert(c2 != c3);
+}
+//===========================================================
+// test cout statement
+//===========================================================
+void test29 (void)
+{
+	cout << "test29" << endl;
+	Complex c1(6, 2);
+	ostringstream stream;
+	stream << c1;
+	string str = stream.str();
+	assert(str == "6+2i");
+}
+
+//===========================================================
+// main
+//===========================================================
+int main (void)
+{
+
+	test1();	// tests default
+	test2();	// tests copy constructor
+	test3();	// tests Complex constructor
+	test4();	// tests addition between 2 complex numbers
+	test5();	// tests addition between complex number and float
+	test6();	// tests addition between complex number and integer
+	test7();	// tests subtraction between 2 complex numbers
+	test8();	// tests subtraction between complex number and float
+	test9();	// tests subtraction between complex number and integer
+	test10();	// tests multiplication between 2 complex numbers
+	test11();	// tests multiplication between complex number and float
+	test12();	// tests multiplication between complex number and integer
+	test13();	// tests division between 2 complex numbers
+	test14();	// tests division between complex number and float
+	test15();	// tests division between complex number and integer
+	test16();	// tests postiive conjugate operator
+	test17();	// tests negative conjugate operator
+	test18();	// tests positive negation operator
+	test19();	// tests negative negation operator
+	test20();	// tests positive exponentation
+	test21();	// tests negative exponentation
+	test22();	// tests setReal
+	test23();	// tests getReal
+	test24();	// tests setImag
+	test25();	// tests getImag
+	test26();	// tests assignment operator
+	test27();	// tests equality operator
+	test28();	// tests inequality operator
+	test29();	// tests cout << // tests ostream operator
+
+	return 0;
+}

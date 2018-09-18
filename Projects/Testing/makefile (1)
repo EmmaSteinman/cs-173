@@ -1,0 +1,17 @@
+all: main main1 main2
+
+main1: testMain1.o Rational.o
+	g++ -std=c++11 -Wall -o main1 testMain1.o Rational.o
+
+main2: testMain2.o Rational.o
+	g++ -std=c++11 -Wall -o main2 testMain2.o Rational.o
+
+testMain1.o: testMain1.cpp Rational.h
+	g++ -std=c++11 -Wall -c testMain1.cpp
+
+testMain2.o: testMain2.cpp Rational.h
+	g++ -std=c++11 -Wall -c testMain2.cpp
+
+Rational.o: Rational.cpp Rational.h
+	g++ -std=c++11 -Wall -c Rational.cpp
+

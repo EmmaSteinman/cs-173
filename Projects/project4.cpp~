@@ -1,0 +1,414 @@
+//==========================================================
+// Emma Steinman
+// project4.cpp
+// February 14, 2017
+// This program completes a word search.
+//==========================================================
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void readWordList(int numberOfWords, string wordList[50]);
+bool upLeft(string item, char list[14][14], int r, int c, int size);
+bool up(string item, char list[14][14], int r, int c, int size);
+bool upRight(string item, char list[14][14], int r, int c, int size);
+bool left(string item, char list[14][14], int r, int c, int size);
+bool right(string item, char list[14][14], int r, int c, int size);
+bool downLeft(string item, char list[14][14], int r, int c, int size);
+bool down(string item, char list[14][14], int r, int c, int size);
+bool downRight(string item, char list[14][14], int r, int c, int size);
+void surrounding(string item, char list[14][14], int r, int c);
+void search(string, char[14][14]);
+
+//===========================================================
+// main
+// This function reads in the puzzle and number of words
+// then calls other functions to complete the word search.
+// Parameters:
+// -none
+// Return Value:
+// -0
+//===========================================================
+
+int main(void)
+{
+
+    char puzzle[14][14];
+    int words;
+
+    for (int i = 0; i< 14; i++)
+    {
+        for (int j = 0; j < 14; j++)    
+        {                                 
+            char c;             //reads in letters in puzzle
+            cin >> c;           //into array and prints them
+            puzzle[i][j] = c;
+            cout << c << ' ';
+        }
+        cout << '\n';
+    }
+  
+    cin >> words;               //reads in and prints the 
+    cout << words << endl;      //number of words
+    string wordList[50];
+    readWordList(words, wordList);
+ 
+    for (int i = 0; i < words; i++)
+        search(wordList[i], puzzle);    //searches each word
+                                        //in list
+    return 0;
+}
+//===========================================================
+// readWordList
+// This function reads in the list of words from the file
+// and stores them in an array.
+// Parameters:
+// -numberOfWords:  the number of words in the list
+// -wordList[50]:   an empty array of size 50
+// Return Value:
+// -none but the array is filled with the words from the list
+//===========================================================
+void readWordList(int numberOfWords, string wordList[50])
+{
+    for (int i = 0; i < numberOfWords; i++) 
+        cin >> wordList[i];         //reads words into array
+}
+//===========================================================
+// upLeft
+// This function searches the up and left diagonal for the 
+// given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool upLeft(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {
+        word += list[r][c];         //appends each letter in
+        r -= 1;                     //the upLeft direction
+        c -= 1;                     //to the string and then
+    }                               //compares it to the word
+    if (item != word)
+        return false;    
+    return true;
+}
+//===========================================================
+// up
+// This function searches up for the given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool up(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {                               //appends each letter in
+        word += list[r][c];         //the up direction to the
+        r -= 1;                     //string and compares it
+    }                               //to the word
+    if (item != word)
+        return false;
+    return true;
+}
+//===========================================================
+// upRight
+// This function searches the up and right diagonal for the 
+// given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool upRight(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {
+        word += list[r][c];         //appends each letter in 
+        r -= 1;                     //the upRight direction
+        c += 1;                     //to the string and 
+    }                               //compares it to the word
+    if (item != word)
+        return false;
+    return true;
+}
+//===========================================================
+// left
+// This function searches left for the given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool left(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {
+        word += list[r][c];
+        c -= 1;
+    }
+    if (item != word)
+        return false; 
+    return true;
+}
+//===========================================================
+// right
+// This function searches right for the given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool right(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {
+        word += list[r][c];
+        c += 1;
+    }
+    if (item != word)
+        return false;
+    return true;
+}
+//===========================================================
+// downLeft
+// This function searches the down and left diagonal for the 
+// given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool downLeft(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {
+        word += list[r][c];
+        r += 1;
+        c -= 1;
+    }
+    if (item != word)
+        return false;
+    return true;
+}
+//===========================================================
+// down
+// This function searches down for the given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool down(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {    
+        word += list[r][c];
+        r +=1;
+    }
+    if (item != word)
+        return false;
+    return true;
+}
+//===========================================================
+// downRight
+// This function searches the down and right diagonal for the 
+// given word.
+// Parameters:
+// -item:           word being searched for
+// -list[14][14]:   2D array with the puzzle 
+// -r:              the row the first letter was found at
+// -c:              the column the first letter was found at
+// -size:           the size of item
+// Return Value;
+// -true if the word is found, false if not
+//===========================================================
+bool downRight(string item, char list[14][14], int r, int c, int size)
+{
+    string word;
+    for (int z = 0; z < size; z++)
+    {
+        word += list[r][c];
+        r += 1;
+        c += 1;
+    }
+    if (item != word)
+        return false;
+    return true;
+}
+//===========================================================
+// surrounding
+// This funtion searches the 8 letters immediately surrounding
+// the letter that matches the first letter in the given word.
+// Parameters:
+// -item:           the given word being searched for
+// -list[14][14]:   2D array with letters of the puzzle
+// -r:              the row where the first letter was found
+// -c:              the column where the first letter was found
+// Return Value:
+// -none but the word, its location, and direction is printed
+//===========================================================
+void surrounding(string item, char list[14][14], int r, int c)
+{
+    int w = 0;
+    int size = item.length();
+    if (item[w+1] == list[r-1][c-1] and r-1>= 0 and c-1>=0)
+    //checks if the word exceeds puzzle boundaries
+    { 
+        bool ans = upLeft(item, list, r, c, size);
+        //calls function to search upLeft
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going up left." << endl;
+            //prints word, location, and direction
+        }   
+    }
+
+    if (item[w+1] == list[r-1][c] and r-1 >= 0)
+    { 
+        bool ans = up(item, list, r, c, size);
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going up." << endl;
+        }
+    }
+
+    if (item[w+1] == list[r-1][c+1] and r-1 >=0 and c+1 <14)
+    { 
+        bool ans = upRight(item, list, r, c, size);
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going up right." << endl;
+        }
+    }
+
+    if (item[w+1] == list[r][c-1] and c-1 >=0)
+    { 
+        bool ans = left(item, list, r, c, size);
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going left." << endl;
+        }
+    }
+
+    if (item[w+1] == list[r][c+1] and c+1 < 14)
+    { 
+        bool ans = right(item, list, r, c, size);
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going right." << endl;
+        }
+    }
+
+    if (item[w+1] == list[r+1][c-1] and r+1 <14 and c-1>=0)
+    { 
+        bool ans = downLeft(item, list, r, c, size);
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going down left." << endl;
+        }
+    }
+
+    if (item[w+1] == list[r+1][c] and r+1<14)
+    { 
+        bool ans = down(item, list, r, c, size);
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going down." << endl;
+        }
+    }
+
+    if (item[w+1] == list[r+1][c+1] and r+1<14 and c+1<14)
+    { 
+        bool ans = downRight(item, list, r, c, size);
+        if (ans)
+        {
+            cout << item << " found at (";
+            cout << r << "," << c << ")";
+            cout << " going down right." << endl;
+        }
+    }
+}
+
+//===========================================================
+// search
+// This function searches for the first letter of the given
+// word by comparing it to every letter in the puzzle.
+// Parameters:
+// -item:           the word being searched for
+// -grid[14][14]:   2D array with the puzzle
+// Return Value
+// -none
+//===========================================================
+void search(string item, char grid[14][14])
+{
+    char letter = item[0];
+    for (int i = 0; i < 14; i++)        
+    {                                   //searches through each
+        for (int j = 0; j < 14; j++)    //letter in puzzle and 
+        {                               //compares it to first       
+            if (grid[i][j] == letter)   //letter in given word
+                surrounding(item, grid, i, j);
+                //checks surrounding letters if first letter is found        
+        }
+    }
+}
+
+
+    
+
+

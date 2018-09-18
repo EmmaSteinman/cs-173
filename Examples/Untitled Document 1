@@ -1,0 +1,14 @@
+/*   
+ int i;          //before using variable have to declare it &type
+    char c;
+    short int j;
+    long int k;
+    long long int m;
+   
+    cout<< "size of i = " <<sizeof(i) << endl;
+    cout<< "size of c = " << sizeof(c) << endl;
+    cout<< "size of j = " << sizeof(j) << endl;
+    cout<< "size of k = " << sizeof(k) << endl;
+    cout<< "size of m = " << sizeof(m) << endl;
+
+    return 0;

@@ -1,0 +1,19 @@
+//Emma Steinman
+//January 24, 2017
+//DataTypes.cpp
+//This program iillustrates usage of basic datatypes.
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+    unsigned char c1, c2, c3;
+
+    c1 = 200;
+    c2 = 200;
+    c3 = c1 + c2;
+
+    cout << c1 << "+" << c2 << "=" << c3 << endl;
+   
+}

@@ -1,0 +1,25 @@
+//==========================================================
+// This is your file for testing your Complex class.
+// Add more commands in here as you build them into your class.
+//==========================================================
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include "Complex.h"
+
+int main ( void )
+{
+    Complex c1;
+    Complex c2(c1);
+    Complex c3(5,10);
+    Complex c4(3.14, 6.9);
+    Complex c5(7,16);
+    Complex c6 = -c4;
+    
+    cout << c6 << endl;
+        
+    
+    return 0;
+}
+

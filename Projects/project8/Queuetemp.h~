@@ -1,0 +1,139 @@
+//=========================================================
+// Emma Steinman
+// April 19, 2017
+// Queue.h
+// 
+//=========================================================
+
+#include <iostream>
+#include <stdlib.h>
+#include <string>
+#include "List.h"
+using namespace std;
+
+//=========================================================
+#ifndef QUEUE_H
+#define QUEUE_H
+
+template <class T>
+class Queue
+{
+protected:
+	List<T>		list;
+public:
+				Queue		(void);
+			   ~Queue		(void);
+				Queue		(const Queue<T> &);
+	Queue<T>	operator=	(const Queue<T> &);
+	void		enqueue		(T item);
+	T			dequeue		(void);
+	T			peek		(void);
+	void		clear		(void);
+	int			length		(void) const;
+	bool		isEmpty		(void) const;
+	friend ostream & operator<<	(ostream &os, const Queue<T> &queue)
+	{
+		os << queue.list.toString();
+		return os;
+	}
+};
+//=========================================================
+// default constructor
+// creates an empty queue
+//=========================================================
+template <class T>
+			Queue<T>::Queue		(void)
+{
+	List<T> list;
+}
+//=========================================================
+// destructor
+// deletes queue and clears memory
+//=========================================================
+template <class T>
+	   	  	Queue<T>::~Queue	(void)
+{
+	delete list;
+}
+//=========================================================
+// copy constructor
+// creates new queue from existing one
+//=========================================================
+template <class T>
+			Queue<T>::Queue		(const Queue<T> &q)
+{
+	for (int i = 0; i < q.length(); i++)
+		append(q[i]);
+}
+//=========================================================
+// operator=
+// sets queue equal to another
+//=========================================================
+template <class T>
+Queue<T>	Queue<T>::operator=	(const Queue<T> &q)
+{
+	list.clear();
+	list = q.list;
+}
+//=========================================================
+// enqueue
+// adds value to the end of a queue
+//=========================================================
+template <class T>
+void		Queue<T>::enqueue	(T item)
+{
+	list.append(item);
+}
+
+//=========================================================
+// dequeue
+// removes and returns value from front of queue
+//=========================================================
+template <class T>
+T			Queue<T>::dequeue	(void)
+{
+	T temp = list[0];
+	list.remove(0);
+	return temp;
+}
+//=========================================================
+// peek
+// returns value from front of queue but does not remove
+//=========================================================
+template <class T>
+T			Queue<T>::peek		(void)
+{
+	T temp = list[0];
+	return temp;
+}
+//=========================================================
+// clear
+// clears items from queue
+//=========================================================
+template <class T>
+void		Queue<T>::clear		(void)
+{
+	list.clear();
+}
+//=========================================================
+// length
+// returns number of items in queue
+//=========================================================
+template <class T>
+int 		Queue<T>::length	(void)const
+{
+	int len = list.length();
+	return len;
+}
+//=========================================================
+// isEmpty
+// returns booleans value indicating if list is empty
+//=========================================================
+template <class T>
+bool		Queue<T>::isEmpty	(void)const
+{
+	return (list.length()==0);
+}
+//=========================================================
+//=========================================================
+		

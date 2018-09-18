@@ -1,0 +1,110 @@
+//======================================================
+//Emma Steinman
+//January 31, 2017
+//Cstrings.cc
+//This function illustrates c style strings. 
+//======================================================
+
+#include <iostream>
+using namespace std;
+
+int strlen(char []);
+void strcpy(char[], char[]);
+int strcmp(char[], char[]);
+//======================================================
+// main
+//======================================================
+
+int main(void)
+{
+	char name[10] = "Emma";
+
+
+	cout << "name = " << name << endl;
+
+	cout << "Length of string is " << strlen(name) << endl;
+
+	strcopy(name2, name);
+	cout << "name2 = " << name2 << endl;
+
+	cout <<strcmp(name2, name) << endl;
+	
+	return 0;
+}
+
+//======================================================
+// This function determines the length of a string.
+//======================================================
+
+int strlen(char s[])
+{
+	int i = 0;
+	while(s[i] != 0)
+		i++;
+	return i;
+
+}
+
+//======================================================
+// strcpy
+// Parameters;
+// - char array b (target)
+// - char array a (source)
+// Return Value
+// - none, but array b is changed by contents of a
+//======================================================
+
+void strcpy(char b[], char a[])
+{
+	int i = 0;
+	while(a[i] != 0)
+	{
+		b[i] = a[i]
+		i++;
+	}
+	b[i] = 0;
+}
+
+
+//======================================================
+// strcmp
+// Parameters;
+// - char array b 
+// - char array a 
+// Return Value
+// - -1, 0, or 1
+//======================================================
+
+
+int strcmp(char c[], char d[])
+{
+	int i = 0;
+	while(a[i] == b[i])
+		i++;
+	if (a[i] > b[i])
+		return 1;
+	if (a[i] < b[i])
+		return -1;
+	else
+		return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+//=================================================
+// Emma Steinman
+// DynamicMemory.cpp
+// March 22, 2017
+// This program shows how to use dynamic memory
+//=================================================
+
+#include <iostream>
+using namespace std;
+
+//=================================================
+// main
+//=================================================
+
+int main (void)
+{
+	return 0;
+}

@@ -1,0 +1,140 @@
+//===========================================================
+// Matt Kretchmar
+// February 21, 2017
+// testMainFormat.cpp
+// This program tests the cout operator (ostream <<) for the
+// Complex class.
+//===========================================================
+
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <assert.h>
+#include "Complex.h"
+using namespace std;
+
+//===========================================================
+// test default format of 0 as "0"
+//===========================================================
+void test1 ( void )
+{
+	cout << "test1\n";
+	Complex c1;
+	ostringstream stream;
+	stream << c1;
+	string str = stream.str();
+    //cout << "str = " << str << endl;
+	assert(str == "0") ;
+}
+//===========================================================
+// test format of 1 + 0i as "1"
+//===========================================================
+void test2 ( void )
+{
+    cout << "test2\n";
+    Complex c1(1,0);
+    ostringstream stream;
+    stream << c1;
+    string str = stream.str();
+    //cout << "str = " << str << endl;
+    assert(str == "1") ;
+}
+//===========================================================
+// test format of 0 + 1i as "i"
+//===========================================================
+void test3 ( void )
+{
+    cout << "test3\n";
+    Complex c1(0,1);
+    ostringstream stream;
+    stream << c1;
+    string str = stream.str();
+    //cout << "str = " << str << endl;
+    assert(str == "i") ;
+}
+//===========================================================
+// test format of 1 + 1i as "1+i"
+//===========================================================
+void test4 ( void )
+{
+    cout << "test4\n";
+    Complex c1(1,1);
+    ostringstream stream;
+    stream << c1;
+    string str = stream.str();
+    //cout << "str = " << str << endl;
+    assert(str == "1+i") ;
+}
+//===========================================================
+// test format of 1 - 1i as "1-i"
+//===========================================================
+void test5 ( void )
+{
+    cout << "test5\n";
+    Complex c1(1,-1);
+    ostringstream stream;
+    stream << c1;
+    string str = stream.str();
+    //cout << "str = " << str << endl;
+    assert(str == "1-i") ;
+}
+//===========================================================
+// test format of 0 - 1i as "-i"
+//===========================================================
+void test6 ( void )
+{
+    cout << "test6\n";
+    Complex c1(0,-1);
+    ostringstream stream;
+    stream << c1;
+    string str = stream.str();
+    cout << "str = " << str << endl;
+    assert(str == "-i") ;
+}
+//===========================================================
+// test format of -1 - 0i as "-1"
+//===========================================================
+void test7 ( void )
+{
+    cout << "test7\n";
+    Complex c1(-1,0);
+    ostringstream stream;
+    stream << c1;
+    string str = stream.str();
+    //cout << "str = " << str << endl;
+    assert(str == "-1") ;
+}
+//===========================================================
+// test format of -1 - 1i as "-1-i"
+//===========================================================
+void test8 ( void )
+{
+    cout << "test8\n";
+    Complex c1(-1,-1);
+    ostringstream stream;
+    stream << c1;
+    string str = stream.str();
+    cout << "str = " << str << endl;
+    assert(str == "-1-i") ;
+}
+
+//===========================================================
+// main
+//===========================================================
+int main ( void )
+{
+
+	test1();
+	test2();
+	test3();
+	test4();
+    test5();
+    test6();
+    test7();
+    test8();
+
+	return 0;
+}
+//===========================================================
+//===========================================================
+
